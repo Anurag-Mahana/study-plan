@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme - More Vibrant Colors */
+            --body-bg: linear-gradient(135deg, #ffeb99 0%, #ff9999 50%, #ccffcc 100%);
+            --section-bg: rgba(255, 255, 255, 0.9);
+            --section-border: rgba(0, 0, 0, 0.15);
+            --text-color: #1a1a1a;
+            --cell-bg: rgba(255, 255, 255, 0.95);
+            --quote-bg: rgba(255, 255, 255, 0.8);
+            --quote-color: #444444;
+            --time-block-color: #333333;
+        }
+
+        .dark-theme {
+            /* Dark Theme - More Vibrant Colors */
+            --body-bg: linear-gradient(135deg, #4a2c8c 0%, #8c2c6b 50%, #2c8c6b 100%);
+            --section-bg: rgba(70, 70, 100, 0.9);
+            --section-border: rgba(255, 255, 255, 0.15);
+            --text-color: #f5f5f5;
+            --cell-bg: rgba(90, 90, 120, 0.95);
+            --quote-bg: rgba(120, 120, 150, 0.8);
+            --quote-color: #d0d0d0;
+            --time-block-color: #ffffff;
+        }
+        .dark-theme h2{
+            color: #a2f4f3;
+        }
+
+        @page {
+            size: A4;
+            margin: 0.5in;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--body-bg);
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        .day-section {
+            background: var(--section-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 0 15px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            page-break-before: always;
+            max-height: 10.19in;
+            overflow: hidden;
+            border: 2px solid var(--section-border);
+            transition: all 0.3s ease;
+        }
+
+        .day-section:first-child {
+            page-break-before: avoid;
+        }
+
+        h2 {
+            color: #29149e;
+            font-weight: 700;
+            padding-left: 10px;
+            margin: 15px 0;
+            font-size: 1.5em;
+            border-bottom: 3px solid #ff66ff;
+            padding-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin: 15px 0;
+            font-size: 1em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #ff3366 0%, #ff9933 100%);
+            color: #ffffff;
+            padding: 14px;
+            text-align: left;
+            border-radius: 10px 10px 0 0;
+            font-weight: 700;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 14px;
+            border-radius: 10px;
+            background: var(--cell-bg);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            color: var(--text-color);
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        td:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .work { background: #4fffcacc; color: #1a1a1a; }
+        .study { background: #ffcc00; color: #1a1a1a; }
+        .gym { background: #ff66cc; color: #1a1a1a; }
+        .meal { background: #cc66ff; color: #1a1a1a; }
+        .revision { background: #33ccff; color: #1a1a1a; }
+        .leisure { background: #99ccff; color: #1a1a1a; }
+        .highlight { font-weight: 700; color: #ffff00; text-shadow: 0 0 4px rgba(0, 0, 0, 0.3); }
+        .time-block { font-weight: 700; color: var(--time-block-color); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); }
+
+        .course-plan {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .course-plan div {
+            flex: 1;
+            background: var(--cell-bg);
+            backdrop-filter: blur(6px);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--section-border);
+            transition: all 0.3s ease;
+        }
+
+        .course-plan h3 {
+            color: #00cc99;
+            font-weight: 700;
+            border-bottom: 2px solid #99ff33;
+            padding-bottom: 6px;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .pastel-primary { background: linear-gradient(135deg, #33ccff, #99eeff); }
+        .pastel-secondary { background: linear-gradient(135deg, #cc66ff, #ee99ff); }
+        .emoji { font-size: 1.3em; margin-right: 6px; }
+
+        .quote {
+            font-size: 1.1em;
+            color: var(--quote-color);
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: var(--quote-bg);
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-style: italic;
+            transition: all 0.3s ease;
+            border: 1px dashed var(--section-border);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ff3366, #ff9933);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #ff9933, #ff3366);
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .day-section {
+                margin: 0;
+                box-shadow: none;
+                border: 1px solid #ccc;
+                background: white;
+                backdrop-filter: none;
+                color: #000000;
+            }
+            .course-plan div, td, th {
+                background: none !important;
+                border: 1px solid #ddd;
+                box-shadow: none;
+                color: #000000;
+            }
+            .quote, .theme-toggle { display: none; }
+            .highlight { color: #d81b60; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Theme Toggle Button -->
+<button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+<!-- 4-Month Course Plan -->
+<div class="day-section">
+    <h2>4-Month Learning Path: April-July 2025</h2>
+    <div class="course-plan">
+        <div class="pastel-primary">
+            <h3>Primary Track</h3>
+            <p><span class="emoji">📅</span> April: JavaScript Basics (W1-2), Advanced JS (W3-4)</p>
+            <p><span class="emoji">📅</span> May: TypeScript (W1-2), SQL Basics (W3-4)</p>
+            <p><span class="emoji">📅</span> June: Angular TS (W1-2), PL/SQL Master (W3-4)</p>
+            <p><span class="emoji">📅</span> July: Java Coding Ninjas, Coursera Java</p>
+        </div>
+        <div class="pastel-secondary">
+            <h3>Parallel Track</h3>
+            <p><span class="emoji">📅</span> April: Java Textbook (OOP, Data Structures)</p>
+            <p><span class="emoji">📅</span> May: Java Advanced (Collections, Exceptions)</p>
+            <p><span class="emoji">📅</span> June: DSA Foundations (Arrays, Strings)</p>
+            <p><span class="emoji">📅</span> July: DSA Competitive (Advanced Algorithms)</p>
+        </div>
+    </div>
+    <h2>Detailed Course Content</h2>
+    <table>
+        <tr><th>Month</th><th>Primary Track</th><th>Parallel Track</th></tr>
+        <tr><td>April</td><td>JS Basics (W1-2): Core, DOM, Events<br>Advanced JS (W3-4): Async, Closures</td><td>Java Textbook: Syntax, OOP, DS</td></tr>
+        <tr><td>May</td><td>TypeScript (W1-2): Types, Generics<br>SQL Basics (W3-4): CRUD, Joins</td><td>Java Advanced: Collections, File I/O</td></tr>
+        <tr><td>June</td><td>Angular TS (W1-2): Components, Routing<br>PL/SQL (W3-4): Procedures</td><td>DSA Foundations: Arrays, Strings</td></tr>
+        <tr><td>July</td><td>Java Ninjas: DP, Optimization<br>Coursera: Multithreading, REST</td><td>DSA Competitive: Trees, Graphs</td></tr>
+    </table>
+    <div class="quote">"Mastery is a journey, not a destination."</div>
+</div>
+
+<!-- Work from Home Days -->
+<div class="day-section">
+    <h2>Monday/Wednesday/Friday (Work from Home)</h2>
+    <table>
+        <tr><th>Time</th><th>Activity</th><th>Course Focus</th></tr>
+        <tr><td class="time-block">9:00–9:30 AM</td><td>Wake up</td><td>-</td></tr>
+        <tr><td class="time-block">9:30–10:00 AM</td><td class="work">Daily Meeting</td><td>-</td></tr>
+        <tr><td class="time-block">10:00 AM–2:40 PM</td><td class="work">Work Session</td><td>-</td></tr>
+        <tr><td class="time-block">2:40–3:40 PM</td><td class="meal">Lunch Break</td><td>-</td></tr>
+        <tr><td class="time-block">3:40–6:00 PM</td><td class="work">Work Continues</td><td>-</td></tr>
+        <tr><td class="time-block">6:00–7:00 PM</td><td>Break</td><td>-</td></tr>
+        <tr><td class="time-block">7:00–8:00 PM</td><td class="gym">Gym Session</td><td>-</td></tr>
+        <tr><td class="time-block">8:00–10:00 PM</td><td class="study">Self-Dev 1</td><td class="pastel-primary">JS/TS, Angular/PLSQL</td></tr>
+        <tr><td class="time-block">10:00–10:30 PM</td><td class="meal">Dinner</td><td>-</td></tr>
+        <tr><td class="time-block">10:30–12:00 AM</td><td class="study">Self-Dev 2</td><td class="pastel-secondary">Java/DSA</td></tr>
+        <tr><td class="time-block">12:00 AM</td><td>Sleep</td><td>-</td></tr>
+    </table>
+    <div class="quote">"Consistency builds greatness."</div>
+</div>
+
+<!-- Office Days -->
+<div class="day-section">
+    <h2>Tuesday/Thursday (Office Days)</h2>
+    <table>
+        <tr><th>Time</th><th>Activity</th><th>Course Focus</th></tr>
+        <tr><td class="time-block">6:50–7:30 AM</td><td>Morning & Commute</td><td>Audiobooks</td></tr>
+        <tr><td class="time-block">9:15–9:30 AM</td><td class="meal">Breakfast</td><td>-</td></tr>
+        <tr><td class="time-block">9:30–10:00 AM</td><td class="work">Meeting</td><td>-</td></tr>
+        <tr><td class="time-block">10:00 AM–1:00 PM</td><td class="work">Work Session</td><td>-</td></tr>
+        <tr><td class="time-block">1:00–2:00 PM</td><td class="meal">Lunch Break</td><td>-</td></tr>
+        <tr><td class="time-block">2:00–6:00 PM</td><td class="work">Work Continues</td><td>-</td></tr>
+        <tr><td class="time-block">6:00–8:00 PM</td><td>Commute Home</td><td>-</td></tr>
+        <tr><td class="time-block">8:15–9:30 PM</td><td class="gym">Gym Session</td><td>-</td></tr>
+        <tr><td class="time-block">9:30–10:00 PM</td><td>Freshen Up</td><td>-</td></tr>
+        <tr><td class="time-block">10:00–10:30 PM</td><td class="meal">Dinner</td><td>-</td></tr>
+        <tr><td class="time-block">10:30–12:30 AM</td><td class="study">Self-Dev</td><td class="pastel-secondary">Java/DSA</td></tr>
+        <tr><td class="time-block">1:00 AM</td><td>Sleep</td><td>-</td></tr>
+    </table>
+    <div class="quote">"Progress over perfection."</div>
+</div>
+
+<!-- Saturday Schedule -->
+<div class="day-section">
+    <h2>Saturday Schedule</h2>
+    <table>
+        <tr><th>Time</th><th>Activity</th><th>Study Focus</th></tr>
+        <tr><td class="time-block">9:30 AM</td><td>Wake up</td><td>-</td></tr>
+        <tr><td class="time-block">10:00–10:30 AM</td><td class="meal">Tea & Breakfast</td><td>-</td></tr>
+        <tr><td class="time-block">11:00–12:30 PM</td><td class="study">Self-Dev</td><td>Focused Study</td></tr>
+        <tr><td class="time-block">12:30–1:00 PM</td><td>Bath</td><td>-</td></tr>
+        <tr><td class="time-block">1:00–2:30 PM</td><td class="study">Study / Cooking</td><td>New Material</td></tr>
+        <tr><td class="time-block">3:00–3:30 PM</td><td class="meal">Lunch</td><td>-</td></tr>
+        <tr><td class="time-block">3:30–4:30 PM</td><td class="study">Self-Dev</td><td>Review & Practice</td></tr>
+        <tr><td class="time-block">4:30–5:30 PM</td><td>Power Nap</td><td>-</td></tr>
+        <tr><td class="time-block">5:30–7:30 PM</td><td>Park Walk</td><td>-</td></tr>
+        <tr><td class="time-block">7:30–8:30 PM</td><td class="study">Self-Dev</td><td>Study Focus</td></tr>
+        <tr><td class="time-block">8:30–10:00 PM</td><td class="leisure">Anime/Movies</td><td>-</td></tr>
+        <tr><td class="time-block">10:00–10:30 PM</td><td class="meal">Dinner</td><td>-</td></tr>
+        <tr><td class="time-block">10:45–11:30 PM</td><td class="study">Late-Night Dev</td><td>New & Revision</td></tr>
+        <tr><td class="time-block">11:30–12:30 AM</td><td class="leisure">Anime/Movies</td><td>-</td></tr>
+        <tr><td class="time-block">12:30 AM</td><td>Sleep</td><td>-</td></tr>
+    </table>
+    <div class="quote">"Balance is key to success."</div>
+</div>
+
+<!-- Sunday Schedule -->
+<div class="day-section">
+    <h2>Sunday Schedule</h2>
+    <table>
+        <tr><th>Time</th><th>Activity</th><th>Study Focus</th></tr>
+        <tr><td class="time-block">9:30 AM</td><td>Wake up</td><td>-</td></tr>
+        <tr><td class="time-block">10:00–10:30 AM</td><td class="meal">Tea & Breakfast</td><td>-</td></tr>
+        <tr><td class="time-block">11:00–11:30 AM</td><td>House Cleaning</td><td>-</td></tr>
+        <tr><td class="time-block">11:30–12:30 PM</td><td>Bike Cleaning & Petrol</td><td>-</td></tr>
+        <tr><td class="time-block">12:30–1:00 PM</td><td>Bath</td><td>-</td></tr>
+        <tr><td class="time-block">1:00–2:30 PM</td><td class="study">Self-Dev</td><td>Focused Study</td></tr>
+        <tr><td class="time-block">3:00–3:30 PM</td><td class="meal">Lunch</td><td>-</td></tr>
+        <tr><td class="time-block">3:30–4:30 PM</td><td class="study">Self-Dev</td><td>Review & Practice</td></tr>
+        <tr><td class="time-block">4:30–5:30 PM</td><td>Power Nap</td><td>-</td></tr>
+        <tr><td class="time-block">5:30–7:30 PM</td><td>Park Walk</td><td>-</td></tr>
+        <tr><td class="time-block">7:30–8:30 PM</td><td class="study">Self-Dev</td><td>Study Focus</td></tr>
+        <tr><td class="time-block">8:30–10:00 PM</td><td class="leisure">Anime/Movies</td><td>-</td></tr>
+        <tr><td class="time-block">10:00–10:30 PM</td><td class="meal">Dinner</td><td>-</td></tr>
+        <tr><td class="time-block">10:45–11:30 PM</td><td class="study">Late-Night Dev</td><td>New & Revision</td></tr>
+        <tr><td class="time-block">11:30–12:30 AM</td><td class="leisure">Anime/Movies</td><td>-</td></tr>
+        <tr><td class="time-block">12:30 AM</td><td>Sleep</td><td>-</td></tr>
+    </table>
+    <div class="quote">"Rest, recharge, and conquer."</div>
+</div>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+    }
+</script>
+
+</body>
+</html>
